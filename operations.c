@@ -86,15 +86,22 @@ void run_operation(int operation) // Função que roda a operação selecionada 
 }
 
 // TODO: OPERAÇÃO 1
-void new_user() 
+void new_user()  // Compensa Por verificação de quantos usuários tem antes?(M) - Sugestão
 {   
+    char nome[0];
+    int idade;
+    float saldo_atual;
+
+    // Cria novo id.... (M)
 
 }
 
 // TODO: OPERAÇÃO 2
 void new_users()
 {
-
+    char nome[0];
+    int idade;
+    float saldo_atual;
 }
 
 // TODO: OPERAÇÃO 3
