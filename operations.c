@@ -89,6 +89,7 @@ void run_operation(int operation) // Função que roda a operação selecionada 
 void new_user(n[])  // Compensa Por verificação de quantos usuários tem antes?(M) - Sugestão
 {   
     // Name
+    void name(char n[]) {
     do {                                                  // do while ;
         printf("Digite Seu Nome Completo: \n");            // Request Name Complet;
         if (fgets(n, 101, stdin) == NULL) {               // condition name == null;   //Defini um tamanho fixo (sizeof = 101)
