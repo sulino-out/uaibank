@@ -86,20 +86,43 @@ void run_operation(int operation) // Função que roda a operação selecionada 
 }
 
 // TODO: OPERAÇÃO 1
-void new_user()  // Compensa Por verificação de quantos usuários tem antes?(M) - Sugestão
+void new_user(n[])  // Compensa Por verificação de quantos usuários tem antes?(M) - Sugestão
 {   
-    char nome[0];
-    int idade;
-    float saldo_atual;
+    // Name
+    do {                                                  // do while ;
+        printf("Digite Seu Nome Completo: \n");            // Request Name Complet;
+        if (fgets(n, 101, stdin) == NULL) {               // condition name == null;   //Defini um tamanho fixo (sizeof = 101)
+            break;                                       // break ;
+        }
 
-    // Cria novo id.... (M)
+        n[strcspn(n, "\n")] = '\0';                // tira uma possibilidade de nova linha
+        
+      } while (strlen(n) == 0);                   // Enquanto o tamanho de n == 0 ele fica no loop
+
+    // Idade
+    int age() {
+        int age;
+        printf("Digite sua idade: \n");
+        scanf("%d", &age);
+        return age; 
+    }
+
+    //Saldo Atual
+    float Current_Balance() {
+        float value;
+        printf("Digite seu Saldo Atual em R$: \n");
+        scanf("%f", &value);
+        return value; 
+    }
+
+    // Cria novo id....  [<stdbool.h>]                                    (By. Molejo)
 
 }
 
 // TODO: OPERAÇÃO 2
 void new_users()
 {
-    char nome[0];
+    char name[];
     int idade;
     float saldo_atual;
 }
