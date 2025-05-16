@@ -5,6 +5,8 @@
 #include <stdbool.h>
 
 int add_id();
+int verify_id(int id);
+char** load_users();
 char* user_name(int id);
 int user_age(int id);
 double user_currency(int id);

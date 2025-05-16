@@ -3,6 +3,7 @@
 // DEFINE O TAMANHO MÁXIMO DOS NOMES
 
 const int NAME_MAX_SIZE = 101;
+const int MAX_USERS = 1000;
 
 // DEFINIÇÃO DE TIPOS DE DADOS
 
@@ -45,9 +46,22 @@ int add_id() // Função que adiciona um novo id contando o número de quebra de
 
 int verify_id(int id) // Função que verifica se um ID existe
 {
+    int lastId = add_id() - 1;
+
     // Se o ID existe, retorna 1
+    if(id <= lastId)
+    {
+        return 1;
+    }
 
     // Se o ID não existe, retorna 0
+    return 0;
+}
+
+char** load_users() // Função que carrega os usuários em uma matriz
+{
+    int i, j;
+    char** matrix = malloc(sizeof(char) * MAX_USERS);
 }
 
 char* user_name(int id) // Função que retorna o nome do usuário de determinado ID -- TODO
