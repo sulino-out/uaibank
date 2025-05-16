@@ -1,20 +1,22 @@
 #include "operations.h"
 
+// DEFINE O TAMANHO MÁXIMO DOS NOMES
+
+const int NAME_MAX_SIZE = 101;
+
 // DEFINIÇÃO DE TIPOS DE DADOS
 
-typedef uint8_t BYTE; // Define um tipo de dado que possui tamanho de 1-byte
-typedef char* string; // Define o tipo de dado string
 typedef struct // Define uma struct para armazenar todos os dados de um usuário
 {
-    string name;
+    char* name;
     int age;
     double currency;
 }
-user;
+users;
 
 // OUTRAS FUNÇÕES
 
-int add_id() // Função que adiciona um novo id contando o número de quebra de linhas no arquivo database.txt -- PRONTA (TALVEZ HAJA NECESSIDADE DE ALTERAÇÃO)
+int add_id() // Função que adiciona um novo id contando o número de quebra de linhas no arquivo database.txt -- PRONTA
 {
     int lastId = 1; // Seleciona, a principio, o ultimo id como sendo 1
 
@@ -41,7 +43,42 @@ int add_id() // Função que adiciona um novo id contando o número de quebra de
     return lastId; // Retorna o valor do novo id
 }
 
-int select_operation(void) // Função que seleciona a operação a ser realizada -- PRONTA
+int verify_id(int id) // Função que verifica se um ID existe
+{
+    // Se o ID existe, retorna 1
+
+    // Se o ID não existe, retorna 0
+}
+
+char* user_name(int id) // Função que retorna o nome do usuário de determinado ID -- TODO
+{
+
+}
+
+int user_age(int id) // Função que retorna a idade do usuário de determinado ID -- TODO
+{
+
+}
+
+double user_currency(int id) // Função que retorna o saldo atual do usuário de determinado ID -- TODO
+{
+
+}
+
+void print_operations() // Função que imprime na tela as operações que podem ser realizadas pelo usuário -- PRONTA
+{
+    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+    printf("Selecione uma operacao para realizar:\n");
+    printf("0. Sair\n");
+    printf("1. Novo usuario\n");
+    printf("2. Novos usuarios\n");
+    printf("3. Procurar usuario por ID\n");
+    printf("4. Fazer transferencia entre usuarios\n");
+    printf("5. Remover usuario por ID\n");
+    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+}
+
+int select_operation() // Função que seleciona a operação a ser realizada -- PRONTA
 {
     int operation; // Cria uma variável para armazenar a operação
 
@@ -50,12 +87,12 @@ int select_operation(void) // Função que seleciona a operação a ser realizad
     {
         scanf("%d", &operation);
 
-        if ((operation >= 1 && operation <= 5) || operation == 0)
+        if ((operation >= 1 && operation <= 5) || operation == 0) // Se o valor for válido, continua
         {
             break;
         }
 
-        printf("Selecione uma opcao valida.\n");
+        printf("Selecione uma opcao valida.\n"); // Se não, volta pro início do loop
     }
 
     return operation; // Retorna a variável para armazenar a operação
@@ -66,82 +103,131 @@ void run_operation(int operation) // Função que roda a operação selecionada 
     switch (operation)
     {
         case 1:
-            // new_user()
+            new_user();
             break;
         case 2:
-            // new_users()
+            new_users();
             break;
         case 3:
-            // search_id()
+            search_id();
             break;
         case 4:
-            // transfer_user()
+            // transfer_user();
             break;
         case 5:
-            // remove_id()
+            // remove_id();
             break;
     }
 
     return;
 }
 
-// TODO: OPERAÇÃO 1
-void new_user(n[])  // Compensa Por verificação de quantos usuários tem antes?(M) - Sugestão
+// OPERAÇÃO 1
+void new_user() // Função que adiciona um novo usuário ao banco de dados -- PRONTA
 {   
-    // Name
-    void name(char n[]) {
-    do {                                                  // do while ;
-        printf("Digite Seu Nome Completo: \n");            // Request Name Complet;
-        if (fgets(n, 101, stdin) == NULL) {               // condition name == null;   //Defini um tamanho fixo (sizeof = 101)
-            break;                                       // break ;
-        }
+    int newUserId = add_id(); // Cria um novo ID para o usuário
+    
+    users user; // Cria uma variável para armazenar as informações do usuário
+    user.name = malloc(sizeof(char) * NAME_MAX_SIZE); // Define o máximo de caractéres do nome sendo 100
+    if(user.name == NULL)
+    {
+        printf("Sem espaco na memoria.\n");
+        exit(1);
+    }
+    
+    // Imprime para o usuário a operação que ele está realizando
+    printf("\n");
+    printf("=-=-=-=-=-=-=NOVO USUARIO=-=-=-=-=-=-\n");
 
-        n[strcspn(n, "\n")] = '\0';                // tira uma possibilidade de nova linha
-        
-      } while (strlen(n) == 0);                   // Enquanto o tamanho de n == 0 ele fica no loop
+    // Pede os dados para o usuário e as armazena nas respectivas variáveis do usuário
+    printf("Nome: ");
+    scanf("\n%[^\n]", user.name);
+    printf("Idade: ");
+    scanf("%d", &user.age);
+    printf("Saldo atual: ");
+    scanf("%lf", &user.currency);
 
-    // Idade
-    int age() {
-        int age;
-        printf("Digite sua idade: \n");
-        scanf("%d", &age);
-        return age; 
+    char* databaseName = "database.txt"; // Define o nome do arquivo da base de dados
+    FILE* database = fopen(databaseName, "a"); // Abre a base de dados
+    if(database == NULL)
+    {
+        printf("Nao foi possivel abrir %s", databaseName);
+        exit(2);
     }
 
-    //Saldo Atual
-    float Current_Balance() {
-        float value;
-        printf("Digite seu Saldo Atual em R$: \n");
-        scanf("%f", &value);
-        return value; 
-    }
+    fprintf(database, "%d '%s' %d %.2lf\n", newUserId, user.name, user.age, user.currency); // Escreve na base de dados os dados do usuários
 
-    // Cria novo id....  [<stdbool.h>]                                    (By. Molejo)
+    fclose(database); // Fecha a base de dados
 
+    // Imprime que a operação foi um sucesso
+    printf("=-=-=-=-=USUARIO %d REGISTADO-=-=-=-=-\n", newUserId);
+    printf("\n");
+
+    return;
 }
 
-// TODO: OPERAÇÃO 2
-void new_users()
+// OPERAÇÃO 2
+void new_users() // Função que adiciona vários usuários ao banco de dados -- PRONTA
 {
-    char name[];
-    int idade;
-    float saldo_atual;
+    int numberOfUsers; // Cria uma variável para armzenar o número de usuários que serão adicionados
+    
+    // Imprime para o usuário a operação que ele está realizando
+    printf("\n");
+    printf("=-=-=-=-=-=-NOVOS USUARIOS-=-=-=-=-=-\n");
+
+    // Pede ao usuário a quantidade de usuários que devem ser adicionados
+    printf("Quantidade de usuarios: ");
+    scanf("%d", &numberOfUsers);
+
+    // Adiciona 'numberOfUsers' usuários novos
+    for(int i = 0; i < numberOfUsers; i++)
+    {
+        new_user();
+    }
+
+    return;
 }
 
 // TODO: OPERAÇÃO 3
-void search_id()
+void search_id() // Função que imprime as informações do usuário a partir do seu ID -- TODO
 {
+    users user;
+    int searchId;
 
+    printf("\n");
+    printf("=-=-=-=-=-=-PROCURA POR ID-=-=-=-=-=-\n");
+    printf("ID: ");
+    scanf("%d", &searchId);
+
+/*     // Armazena o nome do usuário em user.name
+    user.name = user_name(searchId); 
+
+    // Armazena a idade do usuário em user.age
+    user.age = user_age(searchId);
+
+    // Armazena o saldo atual do usuário em user.currency
+    user.currency = user_currency(searchId);
+
+    // imprime as informações do usuário
+
+    printf("Nome: %s\n", user.name);
+    printf("Idade: %d\n", user.age);
+    printf("Saldo atual: %lf\n", user.currency); */
+
+    printf("=-=-=-=-=-OPERACAO REALIZADA-=-=-=-=-\n");
+    printf("\n");
+
+    return;
 }
 
 // TODO: OPERAÇÃO 4
-void transfer_user()
+void transfer_user() // Função que faz transferência entre usuários -- TODO
 {
 
 }
 
 // TODO: OPERAÇÃO 5
-void remove_id()
+void remove_id() // Função que remove um usuário pelo ID -- TODO
 {
 
 }

@@ -10,6 +10,8 @@ int main(void)
 
     while (1)
     {
+        print_operations();
+
         operation = select_operation(); // Armazena em uma variável a operação a ser realizada
         if (operation == 0) // Define como 0 o valor de saída do programa
         {
