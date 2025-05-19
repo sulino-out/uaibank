@@ -57,8 +57,6 @@ int main(void)
         }
     
         run_operation(operation); // Roda a operação selecionada
-
-        free(user);
     }
 
     return 0;
