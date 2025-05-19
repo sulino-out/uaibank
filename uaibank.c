@@ -91,26 +91,27 @@ int add_id() // Função que adiciona um novo id contando o número de quebra de
     return lastId; // Retorna o valor do novo id
 }
 
-int verify_id(int id) // Função que verifica se um ID existe -- PRONTA
+int verify_id(int id) // Função que verifica se um ID existe; Retorna 0 para FALSO e retorna 1 para VERDADEIRO -- PRONTA
 {
+    // Cria as variáveis que serão utilizadas
     int lastId = add_id() - 1;
-    users* user = malloc(sizeof(users) * lastId);
+    users* user = malloc(sizeof(users) * lastId); // Array de usuários
     char* removedUser = "removed_user";
 
-    load_users(user, lastId);
+    load_users(user, lastId); // Carrega, na array de usuários, todos os usuários do banco de dados
 
-    if(id <= lastId)
+    if(id <= lastId) // Procura entre os IDS que são menores que o maior ID que existe
     {
-        if(strcmp(user[id - 1].name, removedUser) == 0)
+        if(strcmp(user[id - 1].name, removedUser) == 0) // Se o ID for de um usuário removido
         {
-            return 0;
+            return 0; // Retorna FALSO
         }
-        else
+        else // Se o usuário existir
         {
-            return 1;
+            return 1; // Retorna VERDADEIRO
         }
     }
-    return 0;
+    return 0; // Se o ID buscado for maior que o maior ID que existe, retorna FALSO
 }
 
 void load_users(users* user_array, int numUsers) // Função que carrega os usuários em uma matriz -- PRONTA
@@ -146,53 +147,29 @@ void print_in_database(users* user_array, int numUsers) // Função que escreve 
 
 char* user_name(int id) // Função que retorna o nome do usuário de determinado ID -- PRONTA
 {
-    if(verify_id(id) == 1)
-    {
-        int lines = add_id() - 1;
-        users* user = malloc(sizeof(users) * lines);
-        load_users(user, lines);
+    int lines = add_id() - 1;
+    users* user = malloc(sizeof(users) * lines);
+    load_users(user, lines);
     
-        return user[id - 1].name;
-    }
-    else
-    {
-        printf("O ID nao existe.\n");
-        exit(1);
-    }
+    return user[id - 1].name;
 }
 
 int user_age(int id) // Função que retorna a idade do usuário de determinado ID -- PRONTA
 {
-    if(verify_id(id) == 1)
-    {
-        int lines = add_id() - 1;
-        users* user = malloc(sizeof(users) * lines);
-        load_users(user, lines);
+    int lines = add_id() - 1;
+    users* user = malloc(sizeof(users) * lines);
+    load_users(user, lines);
     
-        return user[id - 1].age;
-    }
-    else
-    {
-        printf("O ID nao existe.\n");
-        exit(2);
-    }
+    return user[id - 1].age;
 }
 
 double user_currency(int id) // Função que retorna o saldo atual do usuário de determinado ID -- PRONTA
 {
-    if(verify_id(id) == 1)
-    {
-        int lines = add_id() - 1;
-        users* user = malloc(sizeof(users) * lines);
-        load_users(user, lines);
+    int lines = add_id() - 1;
+    users* user = malloc(sizeof(users) * lines);
+    load_users(user, lines);
     
-        return user[id - 1].currency;
-    }
-    else
-    {
-        printf("O ID nao existe.\n");
-        exit(2);
-    }
+    return user[id - 1].currency;
 }
 
 void print_operations() // Função que imprime na tela as operações que podem ser realizadas pelo usuário -- PRONTA
@@ -269,12 +246,12 @@ void new_user() // Função que adiciona um novo usuário ao banco de dados -- P
     printf("\n");
     printf("=-=-=-=-=-=-=NOVO USUARIO=-=-=-=-=-=-\n");
 
-    printf("0. Voltar\n");
+    printf("0. Voltar\n"); // Imprime pro usuário a opção de voltar
 
     // Pede os dados para o usuário e as armazena nas respectivas variáveis do usuário
     printf("Nome: ");
     scanf("\n%[^\n]", user.name);
-    if(user.name[0] == '0')
+    if(user.name[0] == '0') // Se for digitado 0, volta para o menu inicial
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
@@ -283,7 +260,7 @@ void new_user() // Função que adiciona um novo usuário ao banco de dados -- P
 
     printf("Idade: ");
     scanf("%d", &user.age);
-    while(user.age < 0)
+    while(user.age < 0) // Verifica se a idade é positiva
     {
         printf("Erro: A idade nao pode ser negativa.\n");
         printf("Idade: ");
@@ -292,7 +269,7 @@ void new_user() // Função que adiciona um novo usuário ao banco de dados -- P
 
     printf("Saldo atual: ");
     scanf("%lf", &user.currency);
-    while(user.currency < 0)
+    while(user.currency < 0) // Verifica se o saldo é positivo
     {
         printf("Erro: O saldo nao pode ser negativo.\n");
         printf("Saldo atual: ");
@@ -327,18 +304,18 @@ void new_users() // Função que adiciona vários usuários ao banco de dados --
     printf("\n");
     printf("=-=-=-=-=-=-NOVOS USUARIOS-=-=-=-=-=-\n");
 
-    printf("0. Voltar\n");
+    printf("0. Voltar\n"); // Imprime pro usuário a opção de voltar
 
     // Pede ao usuário a quantidade de usuários que devem ser adicionados
     printf("Quantidade de usuarios: ");
     scanf("%d", &numberOfUsers);
-    while(numberOfUsers < 0)
+    while(numberOfUsers < 0) // Verifica se o número de usuários é um valor positivo
     {
         printf("Erro: Selecione um valor positivo.\n");
         printf("Quantidade de usuarios: ");
         scanf("%d", &numberOfUsers);
     }
-    if(numberOfUsers == 0)
+    if(numberOfUsers == 0) // Se for digitado 0, volta para o menu inicial
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
@@ -357,12 +334,16 @@ void new_users() // Função que adiciona vários usuários ao banco de dados --
 // OPERAÇÃO 3
 void search_id() // Função que imprime as informações do usuário a partir do seu ID -- PRONTA
 {
+    // Cria as variáveis que serão utilizadas
     users user;
     int searchId;
     int lines = add_id() - 1;
 
+    // Imprime para o usuário a operação que está sendo realizada
     printf("\n");
     printf("=-=-=-=-=-=-PROCURA POR ID-=-=-=-=-=-\n");
+
+    // Verifica se existem usuários já cadastrados
     if(lines == 0)
     {
         printf("Nao existem usuarios cadastrados.\n");
@@ -370,15 +351,22 @@ void search_id() // Função que imprime as informações do usuário a partir d
         printf("\n");
         return;
     }
-    printf("0. Voltar\n");
+
+    printf("0. Voltar\n"); // Imprime a opção de voltar
+
+    // Pede ao usuário pelo ID
     printf("ID: ");
     scanf("%d", &searchId);
+
+    // Volta se a opção de voltar tiver sido selecionada
     if(searchId == 0)
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
         return;
     }
+
+    // Verifica se o ID selecionado existe
     while(verify_id(searchId) == 0)
     {
         printf("Erro: Nao existe usuario com esse ID.\n");
@@ -396,11 +384,11 @@ void search_id() // Função que imprime as informações do usuário a partir d
     user.currency = user_currency(searchId);
 
     // imprime as informações do usuário
-
     printf("Nome: %s\n", user.name);
     printf("Idade: %d\n", user.age);
     printf("Saldo atual: %.2lf\n", user.currency);
 
+    // Imprime que a operação foi realizada com sucesso
     printf("=-=-=-=-=-OPERACAO REALIZADA-=-=-=-=-\n");
     printf("\n");
 
@@ -423,6 +411,7 @@ void transfer_user() // Função que faz transferência entre usuários -- PRONT
     printf("\n");
     printf("=-=-TRANSFERENCIA ENTRE USUARIOS-=-=-\n");
 
+    // Verifica se há pelo menos 2 usuários
     if(LINES < 2)
     {
         printf("Nao existem usuarios suficientes.\n");
@@ -431,51 +420,62 @@ void transfer_user() // Função que faz transferência entre usuários -- PRONT
         return;
     }
 
-    printf("0. Voltar\n");
+    printf("0. Voltar\n"); // Imprime a opção de voltar
     
     // Pede pelo ID do usuário que fará a transferência
     printf("ID de origem: ");
     scanf("%d", &originId);
+
+    // Volta se a opção de voltar tiver sido selecionada
     if(originId == 0)
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
         return;
     }
-    while(verify_id(originId) == 0) // Se o ID não existir, pede por outro
+
+    // Verifica se o ID selecionado existe
+    while(verify_id(originId) == 0)
     {
         printf("Erro: O ID não existe.\n");
         printf("ID de origem: ");
         scanf("%d", &originId);
     }
+
     printf("Usuario '%s' selecionado.\n", user[originId - 1].name); // Imprime qual é o usuário do ID de origem
     
     // Pede pelo ID do usuário que receberá a transferência
     printf("ID de destino: ");
     scanf("%d", &destinationId);
+
+    // Volta se a opção de voltar tiver sido selecionada
     if(destinationId == 0)
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
         return;
     }
+
     while(verify_id(destinationId) == 0) // Se o ID não existir, pede por outro
     {
         printf("Erro: O ID não existe.\n");
         printf("ID de destino: ");
         scanf("%d", &destinationId);
     }
+
     printf("Usuario '%s' selecionado.\n", user[destinationId - 1].name); // Imprime qual é o usuário do ID de destino
     
     // Pede pelo valor a ser transferido
     printf("Valor da transferencia: ");
     scanf("%lf", &value);
+
     while(value <= 0) // Se o valor não for positivo imprime erro e pede o valor novamente
     {
         printf("Erro: Digite um valor positivo.\n");
         printf("Valor da transferencia: ");
         scanf("%lf", &value);
     }
+
     while(value > user[originId - 1].currency) // Se o usuário de origem não tiver saldo suficiente
     {
         printf("Erro: O usuario %d: '%s' nao possui saldo suficiente.\n", originId, user[originId - 1].name);
@@ -508,12 +508,13 @@ void remove_id() // Função que remove um usuário pelo ID -- PRONTA
     users *user = malloc(sizeof(users) * LINES); // Array de usuários
     int id;
 
-    load_users(user, LINES);
+    load_users(user, LINES); // Carrega os usuários do banco de dados na array
 
     // Imprime para o usuário o cabeçalho
     printf("\n");
     printf("=-=-=-=-=-=REMOVER USUARIO-=-=-=-=-=-\n");
 
+    // Verifica se existem usuários no banco de dados
     if(LINES == 0)
     {
         printf("Nao existem usuarios a serem removidos.\n");
@@ -522,15 +523,20 @@ void remove_id() // Função que remove um usuário pelo ID -- PRONTA
         return;
     }
 
-    printf("0. Voltar\n");
+    printf("0. Voltar\n"); // Imprime para o usuário a opção de voltar
+
     printf("ID: ");
     scanf("%d", &id);
+
+    // Volta se a opção de voltar tiver sido selecionada
     if(id == 0)
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
         return;
     }
+
+    // Verifica se o ID selecionado existe
     while(verify_id(id) == 0)
     {
         printf("Nao existe usuario com esse ID.\n");
@@ -538,14 +544,16 @@ void remove_id() // Função que remove um usuário pelo ID -- PRONTA
         scanf("%d", &id); 
     }
     
-    char* userName = user[id - 1].name;
+    char* userName = user[id - 1].name; // Cria um buffer pra armazenar o nome do usuário selecionado
 
-    user[id - 1].name = "removed_user";
+    // Remove as informações do usuário na array
+    user[id - 1].name = "removed_user"; // O nome do usuário que o ID indica passa a ser 'removed_user'
     user[id - 1].age = 0;
     user[id - 1].currency = 0;
     
-    print_in_database(user, LINES);
+    print_in_database(user, LINES); // Imprime no banco de dados os usuários armazenados na array
     
+    // Imprime para o usuário que a operação foi realizada corretamente
     printf("\n");
     printf("Usuario '%s' removido com sucesso.\n", userName);
     printf("\n");
@@ -553,5 +561,5 @@ void remove_id() // Função que remove um usuário pelo ID -- PRONTA
     printf("=-=-=-=-=-OPERACAO REALIZADA-=-=-=-=-\n"); // Imprime o final da operação
     printf("\n");
 
-    free(user);
+    free(user); // Libera a memória alocada para armazenar a array de usuários
 }
