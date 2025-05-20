@@ -37,7 +37,7 @@ A aplicação consiste em um sistema bancário simples, em que os usuário podem
 
 # Produção
 
-[Ryan Sulino Arrua](https://www.linkedin.com/in/ryan-sulino-arrua-47a598359/ "Linkedin")
-[Júlio Cesar Tanaka Vergamini](https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-tanaka-vergamini-16483b300/ "Linkedin")
-[Gustavo Fantato Fernandes](https://www.linkedin.com/in/gustavofantato/ "Linkedin")
+- [Ryan Sulino Arrua](https://www.linkedin.com/in/ryan-sulino-arrua-47a598359/ "Linkedin")
+- [Júlio Cesar Tanaka Vergamini](https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-tanaka-vergamini-16483b300/ "Linkedin")
+- [Gustavo Fantato Fernandes](https://www.linkedin.com/in/gustavofantato/ "Linkedin")
 
