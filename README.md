@@ -1,44 +1,43 @@
-# projeto-DSMovie
+# Uaibank
 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/GustavoFantato/uaibank/blob/main/LICENSE) 
 
-# About the project
+# Sobre o projeto
 
-DSMovie é uma aplicação full stack web e mobile construída durante a **Semana Spring React**, evento organizado pela [DevSuperior](https://devsuperior.com "Site da DevSuperior").
+Uaibank é um projeto realizado durante a disciplina **SSC0502 - Laboratório de Introdução à Ciência da Computação I** do curso de [Sistemas de Informação do ICMC-USP](https://www.icmc.usp.br/graduacao/sistemas-de-informacao-bacharelado "Informações sobre o curso").
 
-The application consists of a web page with a list of some movies. The page allows user interaction through ratings of movies listed in the web app. 
+A aplicação consiste em um sistema bancário simples, em que os usuário podem se cadastrar e fazer transações entre sí.
 
-## Layout mobile
-![Mobile 1](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/mob1.PNG) ![Mobile 2](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/mob2.PNG)
+# Operações
 
-## Layout web
-![Web1](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/web1.PNG)
-![Web2](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/web2.PNG)
-![Web3](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/web3.PNG)
+![Operações](https://github.com/GustavoFantato/uaibank/blob/main/_assets/operations.png)
 
-## Conceptual model
-![Modelo Conceitual](https://github.com/MatheusAlvarez/projeto-dsmovie/blob/main/_assets/MC.PNG)
+## Adicionar usuário    
 
-# Technologies used
-## Back end
-- Java
-- Spring Boot
+![Adicionar usuário](https://github.com/GustavoFantato/uaibank/blob/main/_assets/add_user.png)
 
+## Adicionar usuários
 
-## Front end
-- TypeScript
-- ReactJS
-- HTML
-- CSS
+![Adicionar Usuários](https://github.com/GustavoFantato/uaibank/blob/main/_assets/add_users.png)
 
-## Implantation in production
-- Back end: Heroku
-- Front end web: Netlify
-- Banco de dados: Postgresql
+## Procurar usuário por ID
 
+![Procurar por ID](https://github.com/GustavoFantato/uaibank/blob/main/_assets/search_id.png)
 
-# Author
+## Fazer transferência
 
-Matheus Maia Alvarez
+![Fazer Transações](https://github.com/GustavoFantato/uaibank/blob/main/_assets/transfer_user.png)
 
-https://br.linkedin.com/in/matheus-maia-alvarez-
+## Remover usuário por ID
+
+![Remover por ID](https://github.com/GustavoFantato/uaibank/blob/main/_assets/remove_id.png)
+
+# Tecnologias Utilizadas
+- C
+
+# Produção
+
+[Ryan Sulino Arrua](https://www.linkedin.com/in/ryan-sulino-arrua-47a598359/ "Linkedin")
+[Júlio Cesar Tanaka Vergamini](https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-tanaka-vergamini-16483b300/ "Linkedin")
+[Gustavo Fantato Fernandes](https://www.linkedin.com/in/gustavofantato/ "Linkedin")
+
