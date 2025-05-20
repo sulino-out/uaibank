@@ -28,9 +28,6 @@ int add_id();
 int verify_id(int id);
 void load_users(users* user_array, int numUsers);
 void print_in_database(users* user_array, int numUsers);
-char* user_name(int id);
-int user_age(int id);
-double user_currency(int id);
 void print_operations();
 int select_operation();
 void run_operation(int operation);
@@ -64,7 +61,7 @@ int main(void)
 
 // OUTRAS FUNÇÕES
 
-int add_id() // Função que adiciona um novo id contando o número de quebra de linhas no arquivo database.txt -- PRONTA
+int add_id() // Função que adiciona um novo id contando o número de quebra de linhas no arquivo database.txt
 {
     int lastId = 1; // Seleciona, a principio, o ultimo id como sendo 1
 
@@ -91,7 +88,7 @@ int add_id() // Função que adiciona um novo id contando o número de quebra de
     return lastId; // Retorna o valor do novo id
 }
 
-int verify_id(int id) // Função que verifica se um ID existe; Retorna 0 para FALSO e retorna 1 para VERDADEIRO -- PRONTA
+int verify_id(int id) // Função que verifica se um ID existe; Retorna 0 para FALSO e retorna 1 para VERDADEIRO
 {
     // Cria as variáveis que serão utilizadas
     int lastId = add_id() - 1;
@@ -104,17 +101,23 @@ int verify_id(int id) // Função que verifica se um ID existe; Retorna 0 para F
     {
         if(strcmp(user[id - 1].name, removedUser) == 0) // Se o ID for de um usuário removido
         {
+            free(user); // Libera o espaço alocado para a array de usuários
+
             return 0; // Retorna FALSO
         }
         else // Se o usuário existir
         {
+            free(user); // Libera o espaço alocado para a array de usuários
+
             return 1; // Retorna VERDADEIRO
         }
     }
+    free(user); // Libera o espaço alocado para a array de usuários
+
     return 0; // Se o ID buscado for maior que o maior ID que existe, retorna FALSO
 }
 
-void load_users(users* user_array, int numUsers) // Função que carrega os usuários em uma matriz -- PRONTA
+void load_users(users* user_array, int numUsers) // Função que carrega os usuários em uma matriz
 {
     // Abre o arquivo no modo leitura
     char* filename = "database.txt";
@@ -128,9 +131,11 @@ void load_users(users* user_array, int numUsers) // Função que carrega os usu�
     }
 
     fclose(database); // Fecha o arquivo
+
+    return; // Retorna
 }
 
-void print_in_database(users* user_array, int numUsers) // Função que escreve os novos dados da matriz no banco de dados -- PRONTA
+void print_in_database(users* user_array, int numUsers) // Função que escreve os novos dados da matriz no banco de dados
 {
     // Abre o arquivo no modo de escrita
     char* filename = "database.txt";
@@ -143,36 +148,11 @@ void print_in_database(users* user_array, int numUsers) // Função que escreve 
     }
 
     fclose(database); // Fecha o arquivo
+
+    return; // Retorna
 }
 
-char* user_name(int id) // Função que retorna o nome do usuário de determinado ID -- PRONTA
-{
-    int lines = add_id() - 1;
-    users* user = malloc(sizeof(users) * lines);
-    load_users(user, lines);
-    
-    return user[id - 1].name;
-}
-
-int user_age(int id) // Função que retorna a idade do usuário de determinado ID -- PRONTA
-{
-    int lines = add_id() - 1;
-    users* user = malloc(sizeof(users) * lines);
-    load_users(user, lines);
-    
-    return user[id - 1].age;
-}
-
-double user_currency(int id) // Função que retorna o saldo atual do usuário de determinado ID -- PRONTA
-{
-    int lines = add_id() - 1;
-    users* user = malloc(sizeof(users) * lines);
-    load_users(user, lines);
-    
-    return user[id - 1].currency;
-}
-
-void print_operations() // Função que imprime na tela as operações que podem ser realizadas pelo usuário -- PRONTA
+void print_operations() // Função que imprime na tela as operações que podem ser realizadas pelo usuário
 {
     printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
     printf("Selecione uma operacao para realizar:\n");
@@ -185,7 +165,7 @@ void print_operations() // Função que imprime na tela as operações que podem
     printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 }
 
-int select_operation() // Função que seleciona a operação a ser realizada -- PRONTA
+int select_operation() // Função que seleciona a operação a ser realizada
 {
     int operation; // Cria uma variável para armazenar a operação
 
@@ -205,7 +185,7 @@ int select_operation() // Função que seleciona a operação a ser realizada --
     return operation; // Retorna a variável para armazenar a operação
 }
 
-void run_operation(int operation) // Função que roda a operação selecionada -- PRONTA
+void run_operation(int operation) // Função que roda a operação selecionada
 {
     switch (operation)
     {
@@ -226,11 +206,11 @@ void run_operation(int operation) // Função que roda a operação selecionada 
             break;
     }
 
-    return;
+    return; // Retorna
 }
 
 // OPERAÇÃO 1
-void new_user() // Função que adiciona um novo usuário ao banco de dados -- PRONTA
+void new_user() // Função que adiciona um novo usuário ao banco de dados
 {   
     int newUserId = add_id(); // Cria um novo ID para o usuário
     
@@ -286,17 +266,17 @@ void new_user() // Função que adiciona um novo usuário ao banco de dados -- P
 
     fprintf(database, "%d %s' %d %.2lf\n", newUserId, user.name, user.age, user.currency); // Escreve na base de dados os dados do usuários
 
-    fclose(database); // Fecha a base de dados
-
     // Imprime que a operação foi um sucesso
     printf("=-=-=-=-=USUARIO %d REGISTADO-=-=-=-=-\n", newUserId);
     printf("\n");
 
-    return;
+    fclose(database); // Fecha a base de dados
+    
+    return; // Retorna
 }
 
 // OPERAÇÃO 2
-void new_users() // Função que adiciona vários usuários ao banco de dados -- PRONTA
+void new_users() // Função que adiciona vários usuários ao banco de dados
 {
     int numberOfUsers; // Cria uma variável para armzenar o número de usuários que serão adicionados
     
@@ -328,23 +308,26 @@ void new_users() // Função que adiciona vários usuários ao banco de dados --
         new_user();
     }
 
-    return;
+    return; // Retorna
 }
 
 // OPERAÇÃO 3
-void search_id() // Função que imprime as informações do usuário a partir do seu ID -- PRONTA
+void search_id() // Função que imprime as informações do usuário a partir do seu ID
 {
     // Cria as variáveis que serão utilizadas
-    users user;
-    int searchId;
-    int lines = add_id() - 1;
+    const int LINES = add_id() - 1;
+    users* user = malloc(sizeof(users) * LINES); // Array de usuários
+    int id;
+
+    // Carrega na array de usuários as informações do banco de dados
+    load_users(user, LINES);
 
     // Imprime para o usuário a operação que está sendo realizada
     printf("\n");
     printf("=-=-=-=-=-=-PROCURA POR ID-=-=-=-=-=-\n");
 
     // Verifica se existem usuários já cadastrados
-    if(lines == 0)
+    if(LINES == 0)
     {
         printf("Nao existem usuarios cadastrados.\n");
         printf("=-=-=-=-=-OPERACAO REALIZADA-=-=-=-=-\n");
@@ -356,10 +339,10 @@ void search_id() // Função que imprime as informações do usuário a partir d
 
     // Pede ao usuário pelo ID
     printf("ID: ");
-    scanf("%d", &searchId);
+    scanf("%d", &id);
 
     // Volta se a opção de voltar tiver sido selecionada
-    if(searchId == 0)
+    if(id == 0)
     {
         printf("=-=-=-=-=-=-=VOLTANDO...-=-=-=-=-=-=-\n"); // Imprime o final da operação
         printf("\n");
@@ -367,36 +350,29 @@ void search_id() // Função que imprime as informações do usuário a partir d
     }
 
     // Verifica se o ID selecionado existe
-    while(verify_id(searchId) == 0)
+    while(verify_id(id) == 0)
     {
         printf("Erro: Nao existe usuario com esse ID.\n");
         printf("ID: ");
-        scanf("%d", &searchId);
+        scanf("%d", &id);
     }
 
-    // Armazena o nome do usuário em user.name
-    user.name = user_name(searchId); 
-
-    // Armazena a idade do usuário em user.age
-    user.age = user_age(searchId);
-
-    // Armazena o saldo atual do usuário em user.currency
-    user.currency = user_currency(searchId);
-
     // imprime as informações do usuário
-    printf("Nome: %s\n", user.name);
-    printf("Idade: %d\n", user.age);
-    printf("Saldo atual: %.2lf\n", user.currency);
+    printf("Nome: %s\n", user[id - 1].name);
+    printf("Idade: %d\n", user[id - 1].age);
+    printf("Saldo atual: %.2lf\n", user[id - 1].currency);
 
     // Imprime que a operação foi realizada com sucesso
     printf("=-=-=-=-=-OPERACAO REALIZADA-=-=-=-=-\n");
     printf("\n");
 
-    return;
+    free(user); // Libera a memória alocada para a array de usuários
+
+    return; // Retorna
 }
 
 // OPERAÇÃO 4
-void transfer_user() // Função que faz transferência entre usuários -- PRONTA
+void transfer_user() // Função que faz transferência entre usuários
 {
     // Define as variáveis que são utilizadas
     const int LINES = add_id() - 1;
@@ -498,10 +474,12 @@ void transfer_user() // Função que faz transferência entre usuários -- PRONT
     printf("\n");
 
     free(user); // Libera a memória alocada para a array de usuários
+
+    return; // Retorna
 }
 
 // OPERAÇÃO 5
-void remove_id() // Função que remove um usuário pelo ID -- PRONTA
+void remove_id() // Função que remove um usuário pelo ID
 {
     // Define as variáveis que serão utilizadas
     const int LINES = add_id() - 1;
@@ -562,4 +540,6 @@ void remove_id() // Função que remove um usuário pelo ID -- PRONTA
     printf("\n");
 
     free(user); // Libera a memória alocada para armazenar a array de usuários
+
+    return; // Retorna
 }

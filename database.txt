@@ -1,4 +1,4 @@
-1 Ryan Sulino Arrua' 20 820.00
+1 Ryan Sulino Arrua' 20 2845.00
 2 Molejo Tanaka' 20 4500.00
 3 Gustavo Fantato' 18 12456.00
 4 Renan Blasques' 28 94200.00
@@ -7,3 +7,5 @@
 7 Nao sei' 23 86540.00
 8 Layla braum' 21 6925.00
 9 Vetor Prazeres' 18 5440.00
+10 removed_user' 0 0.00
+11 Prof. Spatti' 15 20252025.00
