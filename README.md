@@ -6,7 +6,7 @@
 
 Uaibank é um projeto realizado durante a disciplina **SSC0502 - Laboratório de Introdução à Ciência da Computação I** do curso de [Sistemas de Informação do ICMC-USP](https://www.icmc.usp.br/graduacao/sistemas-de-informacao-bacharelado "Informações sobre o curso").
 
-A aplicação consiste em um sistema bancário simples, em que os usuário podem se cadastrar e fazer transações entre sí.
+A aplicação consiste em um sistema bancário simples, em que os usuários podem se cadastrar e fazer transações entre sí.
 
 # Operações
 
